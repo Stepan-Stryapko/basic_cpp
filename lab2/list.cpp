@@ -37,6 +37,7 @@ public:
 
     // Оператор присваивания
     subforwardlist& operator=(const subforwardlist& other) {
+        // Аналогично замечанию про вектор
         if (this != &other) {
             clear();
             
@@ -61,6 +62,9 @@ public:
 
     // Оператор присваивания перемещением
     subforwardlist& operator=(subforwardlist&& other)  {
+        // 1) можно просто свое состояние отдать other
+        // 2) тут може можно использовать clear(), чтобы не переписывать код
+        
         if(this == &other) return *this;
         while(begin){
             Node* temp = begin;
@@ -71,7 +75,7 @@ public:
         other.begin = nullptr;
         return *this;
     }
-
+// Здесь и далее неявно используется код, который ищет указатель на ноду по индексу, это можно было вынести в отдельный метод и переиспользовать везде
     // push_back 
     void push_back(const T& data) {
         Node* new_node = new Node{data, nullptr};
@@ -184,4 +188,5 @@ private:
             delete temp;
         }
     }
+
 };
