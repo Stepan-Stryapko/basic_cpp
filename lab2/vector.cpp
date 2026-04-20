@@ -12,9 +12,9 @@ public:
 
     // Конструктор с параметром
     explicit subvector(unsigned int n) : capacity(n), top(0) {
-        mas = new T[n];
+        mas = new T[n];   // это тоже можно было бы в список инициализации загнать
     }
-
+    
     // Деструктор
     ~subvector(){
         delete[] mas;
@@ -34,6 +34,7 @@ public:
 
     // Оператор присваивания
     subvector& operator=(const subvector& other){
+        // стандартный комментарий про copy&swap
         if(this == &other) return *this;
         delete[] mas;
         capacity = other.capacity;
@@ -54,6 +55,7 @@ public:
 
     // Оператор присваивания перемещением
     subvector& operator=(subvector&& other) {
+        // Тут правильнее не удалять себя (это долго), а отдать свое состояние внутрь other, так как это move операция, то такое поведение корректно
         if (this != &other) {
             delete[] mas;
             
@@ -129,4 +131,5 @@ public:
     unsigned int get_capacity() const {
         return capacity;
     }
+
 };
